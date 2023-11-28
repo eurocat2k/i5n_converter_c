@@ -1,25 +1,36 @@
-NAME=i5n
-NAME1=indexOf
-CC=clang
-OBJS=test.o
-OBJS1=indexOf.o
-CFLAGS=-g -O2 -Wall -Wextra -I../src/include
-LIBS= -L../src -li5n
+CC	:= clang
+CFLAGS	:= -g -Wall -Wextra -I../src/include
+SRC1	:= test.c
+OBJ1	:= test.o
+BIN1	:= i5n
+SRC2	:= indexof.c
+OBJ2	:= indexof.o
+BIN2	:= index
+LIBS	:= ../lib/libi5n.a
 
-all: $(NAME) $(NAME1)
-	touch *.c
 
-.o.c:
-	$(CC) $(CFLAGS) -c $@ $^
+all: i5n index
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^ $(LIBS) # -L../src -li5n
-	mv $(NAME) $(NAME).exe
+i5n: test.o
+	$(CC) $(LIBS) test.o -o $@
 
-$(NAME1): $(OBJS1)
-	$(CC) $(CFLAGS) -o $@ $^ $(LIBS) # -L../src -li5n
-	mv $(NAME1) $(NAME1).exe
+index: indexof.o
+	$(CC) $(LIBS) indexof.o -o $@
+
+test.o:	test.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+indexof.o: indexof.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+test.c:
+	touch $@
+
+indexof.c:
+	touch $@
 
 clean:
-	rm -f *.O *.exe
-	#cd ../src && make clean
+	rm -f *.o
+	rm -f i5n
+	rm -f index
+	rm -f *core
