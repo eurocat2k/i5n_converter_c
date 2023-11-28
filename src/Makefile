@@ -1,8 +1,6 @@
 CC=clang
 ARFLAGS=rcsv
-CFLAGS=-g -O2 -I./include -static
-SRC=i5n.c
-OBJF=i5n.o
+CFLAGS=-g -O2 -I./include -static -mcpu=x86-64
 LIBNAME=libi5n.a
 
 all: libi5n.a
@@ -20,5 +18,4 @@ clean:
 	rm -f *.o
 	rm -f *.a
 	rm -f *.core
-	rm -f ../lib/*
-
+	# rm -f ../lib/*

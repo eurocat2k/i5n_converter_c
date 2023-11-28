@@ -12,10 +12,10 @@ DECODING
 01011000 58
 00100000 20
  1(49) U(21)  (32)  (32)
-decoded: QTR41U  
+decoded: QTR41U
  17 20 18 52 49 21 32 32
 idx=18: R
-QTR41U  
+QTR41U
 
 ENCODING
  17 Q 00010001
@@ -35,7 +35,7 @@ encoded: [0x45 0x44 0xb4 0xc5 0x58 0x20]
 
 ## Test i5n
 ```
-callsign: QTR41U  
+callsign: QTR41U
 encoded: [0x45 0x44 0xb4 0xc5 0x58 0x20]
 17
 20
@@ -46,4 +46,21 @@ encoded: [0x45 0x44 0xb4 0xc5 0x58 0x20]
 32
 32
 decoded: [QTR41U  ]
+```
+
+### Windows build (mingw) and run
+```
+> clang.exe -I.\src\include [-DDEBUG] -g -Wall -Wextra .\test\test.c .\src\i5n.c -o .\test\i5n.cmd
+
+> .\test\i5n.cmd
+
+
+> clang.exe -I.\src\include [-DDEBUG] -g -Wall -Wextra .\test\indexof.c .\src\i5n.c -o .\test\index.cmd
+
+> .\test\index.cmd
+```
+
+### Unix build and run
+```
+> make [CFLAGS=-DDEBUG] && ./test/i5n; ./test/index
 ```

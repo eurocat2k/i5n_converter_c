@@ -24,9 +24,11 @@ void i5n_encode(char *const dst, const char *src, size_t len) {
         dst[j]     = (ch0 << 2 | (ch1 & 0x30) >> 4);
         dst[j + 1] = ((ch1 & 0x0f) << 4 | (ch2 & 0x3f) >> 2);
         dst[j + 2] = ((ch2 & 0x03) << 6 | ch3);
-        // printf(" 0x%02x", (unsigned char)dst[j]);
-        // printf(" 0x%02x", (unsigned char)dst[j + 1]);
-        // printf(" 0x%02x\n\n", (unsigned char)dst[j + 2]);
+#ifdef DEBUG
+        printf(" 0x%02x", (unsigned char)dst[j]);
+        printf(" 0x%02x", (unsigned char)dst[j + 1]);
+        printf(" 0x%02x\n\n", (unsigned char)dst[j + 2]);
+#endif
     }
 }
 
@@ -35,10 +37,12 @@ void i5n_decode(char *const dst, const char *src, size_t len) {
         return;
     }
     for (int i = 0, j = 0; i < len; i += 3, j += 4) {
+#ifdef DEBUG
         printf("%d\n", (unsigned char)src[i] >> 2);
         printf("%d\n", ((unsigned char)src[i] & 0x3) << 4 | ((unsigned char)src[i + 1] & 0xf0) >> 4);
         printf("%d\n", ((unsigned char)src[i+1] & 0xf) << 2 | (unsigned char)(src[i+2] & 0xc0) >> 6);
         printf("%d\n", (unsigned char)src[i + 2] & 0x3f);
+#endif
         dst[j]   = sixbitstable[(unsigned char)src[i] >> 2];
         dst[j+1] = sixbitstable[((unsigned char)src[i] & 0x3) << 4 | ((unsigned char)src[i+1] & 0xf0) >> 4];
         dst[j+2] = sixbitstable[((unsigned char)src[i+1] & 0x0f) << 2 | ((unsigned char)src[i+2] & 0xC0) >> 6];

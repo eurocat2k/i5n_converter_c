@@ -1,13 +1,6 @@
 CC	:= clang
-CFLAGS	:= -g -Wall -Wextra -I../src/include
-SRC1	:= test.c
-OBJ1	:= test.o
-BIN1	:= i5n
-SRC2	:= indexof.c
-OBJ2	:= indexof.o
-BIN2	:= index
+CFLAGS	:= -g -Wall -Wextra -I../src/include -mcpu=x86-64
 LIBS	:= ../lib/libi5n.a
-
 
 all: i5n index
 
